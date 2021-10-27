@@ -1,0 +1,109 @@
+﻿<Window x:Class="KMJiggler.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KMJiggler"
+        Icon="pack://siteoforigin:,,,/Resources/twerk.ico"
+        mc:Ignorable="d"
+        Title="Jiggler"
+        Style="{StaticResource StandardStyle}"
+        Background="Transparent"
+        local:WindowBlur.IsEnabled="True"
+        ResizeMode="NoResize"
+        Height="400" 
+        Width="185">
+
+    <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Grid.Resources>
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="1pt"/>
+                <Setter Property="Height" Value="25pt"/>
+                <Setter Property="Width" Value="100pt"/>
+                <Setter Property="FontSize" Value="14pt"/>
+            </Style>
+            <Style TargetType="ToggleButton">
+                <Setter Property="Margin" Value="1pt"/>
+                <Setter Property="Height" Value="25pt"/>
+                <Setter Property="Width" Value="90pt"/>
+                <Setter Property="FontSize" Value="14pt"/>
+            </Style>
+            <Style TargetType="Border">
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="1px"/>
+                <Setter Property="Margin" Value="12pt"/>
+                <Setter Property="Padding" Value="5pt"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+            <Style TargetType="GroupBox">
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Margin" Value="12"/>
+                <Setter Property="Padding" Value="10"/>
+            </Style>
+            <Style TargetType="Slider">
+                <Setter Property="Margin" Value="0 0 0 12"/>
+                <Setter Property="Width" Value="120"/>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="Foreground" Value="White"/>
+                <Style.Triggers>
+                    <Trigger Property="Foreground" Value="White">
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="Black" BlurRadius="3" Opacity="1" RenderingBias="Performance" ShadowDepth="0" Direction="0"/>
+
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <ControlTemplate x:Key="ToggleButtonTemplate" TargetType="{x:Type ToggleButton}">
+                <Border CornerRadius="15" Background="{TemplateBinding Background}">
+                    <ContentPresenter Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsChecked" Value="False">
+                        <Setter Property="Content" Value="OFF"/>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Color="Red"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="Content" Value="ON"/>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Color="Chartreuse"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Grid.Resources>
+        <StackPanel>
+            <GroupBox>
+                <GroupBox.Header>
+                    <Label>Keyboard</Label>
+                </GroupBox.Header>
+                <StackPanel HorizontalAlignment="Left">
+                    <Label>Interval:</Label>
+                    <Slider Interval="1" Value="5" Maximum="10" Minimum="1" ValueChanged="OnKeyboardIntervalChanged"/>
+                    <ToggleButton Checked="OnKeyboardToggleButtonChecked" Unchecked="OnKeyboardToggleButtonUnchecked" Template="{StaticResource ToggleButtonTemplate}"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox>
+                <GroupBox.Header>
+                    <Label>Mouse</Label>
+                </GroupBox.Header>
+                <StackPanel>
+                    <Label>Interval:</Label>
+                    <Slider Value="5" Interval="1" Maximum="10" Minimum="1" ValueChanged="OnMouseIntervalTimingChanged"/>
+                    <Label>Movement:</Label>
+                    <Slider Value="50" Interval="1" Maximum="100" Minimum="1" ValueChanged="OnMouseMovementIntervalChanged"/>
+                    <ToggleButton Checked="OnMouseButtonToggleChecked" Unchecked="OnMouseButtonToggleUnchecked" Template="{StaticResource ToggleButtonTemplate}"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</Window>
